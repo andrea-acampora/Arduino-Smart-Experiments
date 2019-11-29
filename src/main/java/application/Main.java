@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * This class represent the Main class of the JavaFX-based application.
+ */
 public final class Main extends Application {
 
     private static final int SCENE_WIDTH = 500;
@@ -21,6 +24,10 @@ public final class Main extends Application {
         stage.show();
     }
 
+    /**
+     * 
+     * @param args unused
+     */
     public static void main(final String[] args) {
         launch();
     }
