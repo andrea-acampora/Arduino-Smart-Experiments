@@ -1,10 +1,10 @@
 package controllers;
 
-import com.google.common.collect.ImmutableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  *
  */
 public final class UIController {
+
     @FXML
     private Label lbl;
 
@@ -23,7 +24,7 @@ public final class UIController {
      */
     @FXML
     public void btnOnClickHandler() {
-        final var elements = ImmutableList.of(
+        final var elements = Arrays.asList(
             "Hello, JavaFX version ", System.getProperty("javafx.version"),
             " is running on Java ", System.getProperty("java.version"));
         lbl.setText(elements.stream().collect(Collectors.joining("")));

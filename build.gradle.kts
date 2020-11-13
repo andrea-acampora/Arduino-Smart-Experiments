@@ -1,4 +1,3 @@
-// Declaration of the Gradle extension to use
 plugins {
     java
     application
@@ -10,9 +9,9 @@ plugins {
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 repositories {
-    jcenter() // Contains the whole Maven Central + other stuff
+    jcenter()
 }
-// List of JavaFX modules you need. Comment out things you are not using.
+
 val javaFXModules = listOf(
     "base",
     "controls",
@@ -20,18 +19,20 @@ val javaFXModules = listOf(
     "swing",
     "graphics"
 )
-// All required for OOP
+
 val supportedPlatforms = listOf("linux", "mac", "win")
 
 dependencies {
-    // Example library: Guava. Add what you need (and remove Guava if you don't use it)
-    implementation("com.google.guava:guava:28.1-jre")
-    // JavaFX: comment out if you do not need them
     for (platform in supportedPlatforms) {
         for (module in javaFXModules) {
             implementation("org.openjfx:javafx-$module:13:$platform")
         }
     }
+    
+    // https://mvnrepository.com/artifact/org.scream3r/jssc
+	//compile group: 'org.scream3r', name: 'jssc', version: '2.8.0'
+    implementation("org.scream3r:jssc:2.8.0")
+    
     // JUnit API and testing engine
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
