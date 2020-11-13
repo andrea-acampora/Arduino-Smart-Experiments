@@ -1,7 +1,7 @@
-.gradle/
-build/
-bin/
-out/
+src/java/Viewer/.gradle/
+src/java/Viewer/build/
+src/java/Viewer/bin/
+src/java/Viewer/out/
 .idea/
 # Ignored, as Gradle Buildship generates it on import / refresh
-.classpath
+src/java/Viewer/.classpath
