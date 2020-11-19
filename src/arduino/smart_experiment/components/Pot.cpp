@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "Pot.h"
 
-Pot::Pot(int pin){
+Pot::Pot(String pin){
     this.pin = pin; 
 }
 

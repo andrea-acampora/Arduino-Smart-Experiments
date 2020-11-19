@@ -3,10 +3,10 @@
 
 class Pot{
     public: 
-        Pot(int pin); 
+        Pot(String pin); 
         int getValue(); 
     private: 
-        int pin; 
+        String pin; 
 }; 
 
 #endif

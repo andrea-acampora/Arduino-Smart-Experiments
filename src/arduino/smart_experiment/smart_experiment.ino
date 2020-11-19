@@ -1,6 +1,6 @@
-void setup() {
-  // put your setup code here, to run once:
+#include "componentLib/Led.h"
 
+void setup() {
 }
 
 void loop() {
