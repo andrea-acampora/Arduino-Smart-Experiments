@@ -2,7 +2,7 @@
 #include "Arduino.h"
 
 
-Led::Led((int pin){
+Led::Led(int pin){
     this.pin = pin; 
     pinMode(pin, OUTPUT); 
 }
@@ -13,4 +13,4 @@ void Led::switchOn(){
 
 void Led::switchOff(){
     digitalWrite(pin, LOW); 
-}
+}; 
