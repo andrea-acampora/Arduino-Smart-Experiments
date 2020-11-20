@@ -44,6 +44,7 @@ STATO ESP_PARTITO:
 - AZIONE: scrivi stato su seriale
 - TASK: traccia l'oggetto
 - TASK: elabora dati
+- TASK: aggiorna / setta tachimetro
 - TASK: scrivi dati su seriale
 - TASK / INTERRUPT: leggi Bstop 
 - TASK / INTERRUPT : controlla timer per MAX_TIME
