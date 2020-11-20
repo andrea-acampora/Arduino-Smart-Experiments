@@ -3,7 +3,7 @@
 
 
 Pir::Pir(int pin){
-    this.pin = pin; 
+    this -> pin = pin; 
     pinMode(pin, INPUT); 
 }
 

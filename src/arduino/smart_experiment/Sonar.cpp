@@ -2,13 +2,13 @@
 #include "Sonar.h"
 
 Sonar::Sonar(int trigPin, int echoPin){
-   this.trigPin = trigPin; 
-   this.echoPin = echoPin; 
+   this->trigPin = trigPin; 
+   this->echoPin = echoPin; 
    pinMode(trigPin, OUTPUT);
    pinMode(echoPin, INPUT);
 }
 
-Sonar::getDistance(float temperature){
+float Sonar::getDistance(float temperature){
     const float vs = 331.45 + 0.62* temperature;
 
     /* invio impulso */

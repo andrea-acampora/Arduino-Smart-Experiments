@@ -1,12 +1,13 @@
 #ifndef __POT__
 #define __POT__
 
+#include "Arduino.h"
 class Pot{
     public: 
-        Pot(String pin); 
+        Pot(int pin); 
         int getValue(); 
     private: 
-        String pin; 
+        int pin; 
 }; 
 
 #endif

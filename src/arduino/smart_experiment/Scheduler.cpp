@@ -26,7 +26,7 @@ bool Scheduler::addTask(Task* task){
 }
 
 void Scheduler::resetTaskList(){
-    nTask = 0;
+    this->nTasks = 0;
 }
 
 void Scheduler::schedule(){   

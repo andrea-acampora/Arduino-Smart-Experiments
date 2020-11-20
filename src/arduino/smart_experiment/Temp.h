@@ -1,13 +1,14 @@
 #ifndef __TEMP__
 #define __TEMP__
 
+#include "Arduino.h"
 
 class Temp{
     public: 
-        Temp(String pin); 
+        Temp(int pin); 
         float getTemperature();
     private: 
-        String pin; 
+        int pin; 
 }; 
 
 #endif

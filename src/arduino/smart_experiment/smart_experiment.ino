@@ -1,9 +1,18 @@
-#include "componentLib/Led.h"
+#include "Arduino.h"
+#include "Scheduler.h"
+#include "Task.h"
+#include "FrequencyTask.h"
 
-void setup() {
+
+Scheduler sched;
+
+  void setup() {
+   sched.init(100);
+   Task* freqTask = new FrequencyTask();
+   freqTask -> init(500);
+   sched.addTask(freqTask);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  sched.schedule();
 }
