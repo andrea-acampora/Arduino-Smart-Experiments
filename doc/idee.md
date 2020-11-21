@@ -54,5 +54,13 @@ STATO ESP_PARTITO:
 STATO ESP_TERMINATO:
 
 - AZIONE: scrivi stato su seriale
+
 - TASK : blink L2
+
 - TASK: leggi dati da seriale
+
+  
+
+# Dubbio #  
+
+TimerTask viene gestito dentro ReadyTask o fuori da tutto??
