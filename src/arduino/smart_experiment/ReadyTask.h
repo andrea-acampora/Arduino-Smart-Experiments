@@ -3,20 +3,22 @@
 
 #include "Task.h"
 #include "Light.h"
-#include "FrequencyTask.h"
+#include "Arduino.h"
+#include "Globals.h"
 
 #define SLEEP_TIME 5000
 #define PIN_LED_1 13
+#define NMAX 50
 
 class ReadyTask: public Task {
 
-  Task* frequencyTask;
-  Task* timerTask;
+  Task* taskList[NMAX];
   Light* led_1;
+  int nTasks;
 
 public:
 
-  ReadyTask();  
+  ReadyTask(Task* calculateFrequency, Task* timer);  
   void init(int period);  
   void tick();
 };

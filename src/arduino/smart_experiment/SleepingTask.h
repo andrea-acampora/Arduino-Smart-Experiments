@@ -4,7 +4,7 @@
 #include "Task.h"
 #include "Light.h"
 #include "Pir.h"
-#include "MsgService.h"
+#include "Globals.h"
 
 #define PIN_LED_1 13
 #define PIN_PIR 4

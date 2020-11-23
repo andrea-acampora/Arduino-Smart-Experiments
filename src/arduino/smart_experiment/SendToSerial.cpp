@@ -9,10 +9,6 @@ void SendToSerialTask::init(int period){
   MsgService.init();
 }
 
-void SendToSerialTask::setValue(String value){
-  this->value = value;
-}
-
 void SendToSerialTask::tick(){
     MsgService.sendMsg(this->value);
 }

@@ -1,20 +1,17 @@
 #include "Arduino.h"
 #include "TimerTask.h"
 
-TimerTask::TimerTask(long int time_to_expire){
-  this -> time_to_expire = time_to_expire;
-  }
+TimerTask::TimerTask(){}
 
 void TimerTask::init(int period){
   Task::init(period);
-  this -> elapsed = 0;
-  this -> period = period;
-  this -> setActive(true);
+  this -> setActive(false);
+  this -> old_tick = 0;
 }
 
 void TimerTask::tick(){
-  this -> elapsed = this -> elapsed + this ->period;
-  if(this -> elapsed >= this -> time_to_expire){
-    this -> setActive(false);
-  }
+  int current = millis();
+  int elapsed = current - this -> old_tick;
+  timer -= elapsed;
+  this -> old_tick = current;
 }

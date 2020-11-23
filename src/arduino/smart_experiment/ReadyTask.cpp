@@ -2,26 +2,35 @@
 #include "ReadyTask.h"
 #include "TimerTask.h"
 #include "Arduino.h"
+#include "Globals.h"
 
-ReadyTask::ReadyTask(){}
+ReadyTask::ReadyTask(Task* calculateFrequency, Task* timer){
+  this -> taskList[0] = calculateFrequency;
+  this -> taskList[1] = timer;
+  led_1 = new Led(PIN_LED_1);
+  nTasks = 2;
+  }
 
 void ReadyTask::init(int period){
   
   Task::init(period);
-  frequencyTask = new FrequencyTask();
-  frequencyTask->init(0);
-  timerTask = new TimerTask(SLEEP_TIME);
-  timerTask -> init(period);
-  led_1 = new Led(PIN_LED_1);
-  led_1 -> switchOn();
   this -> setActive(true);
+  led_1 -> switchOn();
+  timer = SLEEP_TIME;
+  for(int i=0;i<nTasks;i++){
+    taskList[i] -> setActive(true);
+  }  
 }
 
 void ReadyTask::tick(){
-  if(timerTask -> isActive()){
-      timerTask -> tick();
-  }else{
-    this -> setActive(false);
+  if(state==READY){
+    if(timer <= 0){
+      state = SLEEPING;
+      timer = SLEEP_TIME;
+       for(int i=0;i<nTasks;i++){
+          taskList[i] -> setActive(false);
+        } 
+     }
   }
-  frequencyTask->tick();
+  
 }

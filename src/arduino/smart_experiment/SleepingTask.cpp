@@ -8,30 +8,28 @@
 SleepingTask::SleepingTask(){
   pir_sensor = new Pir(PIN_PIR);
   led_1 = new Led(PIN_LED_1);
-  led_1 -> switchOff();
   }
 
 
 void SleepingTask::wakeUp(){
-  Serial.println("interrupt");
+  state = READY;
+  
   }
 
 void SleepingTask::init(int period){
   
   Task::init(period);
   this -> setActive(true);
+  led_1 -> switchOff();
   enableInterrupt(this->pir_sensor->getPin(), wakeUp, RISING);   
 
 }
 
 void SleepingTask::tick(){
-  Serial.println("GOING IN POWER DOWN IN 1s ...");
-  Serial.flush();
-  delay(1000);
-  
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);  
-  sleep_enable();
-  sleep_mode(); 
-  Serial.println("wake up");
-  sleep_disable();
+  if (state == SLEEPING){
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);  
+    sleep_enable();
+    sleep_mode(); 
+    sleep_disable();
+  }
   }

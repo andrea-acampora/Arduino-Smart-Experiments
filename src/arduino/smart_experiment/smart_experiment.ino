@@ -2,52 +2,53 @@
 #include "Scheduler.h"
 #include "Task.h"
 #include "ReadyTask.h"
+#include "CalculateFrequencyTask.h"
+#include "SendToSerialTask.h"
+#include "TimerTask.h"
 #include "SleepingTask.h"
+#include "Globals.h"
 
-#define SLEEP_TIME 5
-#define STATE_READY 1
-#define STATE_SLEEPING 2
-#define STATE_ABORTED 3
-#define STATE_IN_EXECUTION 4
-#define STATE_TERMINATED 5
+#define SLEEP_TIME 5000
 
 Scheduler sched;
+Task* calculateFrequency;
+Task* timerTask;
+Task* sendToSerial;
+Task* readyTask;
+Task* sleepingTask;
 
-Task* currentTask;
-
-int state;
-bool task_active;
-
-  void setup() {
-   state = STATE_READY;
-   currentTask = new ReadyTask();
-   currentTask->init(300);
-   sched.init(100);
-   sched.addTask(currentTask);
+void setup() {
+  State state = READY;
+  Serial.begin(9600);
+  sched.init(100);
+  createTasks();
+  initTasks();
+  addTasks();
+ }
+ 
+void loop() {
+  sched.schedule();
+  Serial.println(state);
 }
 
-void loop() {
-  
-  noInterrupts();
-  task_active = currentTask -> isActive();
-  int currentState = state;
-  interrupts();
-  if(!task_active){
-    switch(currentState){
-      case STATE_READY:
-        sched.resetTaskList();
-        state = STATE_SLEEPING;
-        currentTask = new SleepingTask();
-        currentTask -> init(100);
-        sched.init(50);
-        
-//      case STATE_SLEEPING:
-//        state = STATE_READY;
-//        currentTask = new ReadyTask();
-//        currentTask -> init(300);
-//        sched.init(50);
-    }
-    sched.addTask(currentTask);
-  }
-  sched.schedule();
+void createTasks(){
+
+  calculateFrequency = new CalculateFrequencyTask();
+  timerTask = new TimerTask();
+  readyTask = new ReadyTask(calculateFrequency,timerTask);
+  sleepingTask = new SleepingTask();
+}
+
+void initTasks(){
+  calculateFrequency -> init(300);
+  timerTask -> init(200);
+  readyTask->init(100);
+  sleepingTask -> init(500);
+}
+
+void addTasks(){
+  sched.addTask(calculateFrequency);
+  sched.addTask(timerTask);
+  sched.addTask(readyTask);
+  sched.addTask(sleepingTask);
 }

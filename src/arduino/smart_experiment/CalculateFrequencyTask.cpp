@@ -1,6 +1,7 @@
 #include "CalculateFrequencyTask.h"
 #include "Arduino.h"
 #include "Pot.h"
+#include "Globals.h"
 
 CalculateFrequencyTask::CalculateFrequencyTask(){}
 
@@ -11,9 +12,5 @@ void CalculateFrequencyTask::init(int period){
 
 void CalculateFrequencyTask::tick(){
   int value  = pot -> getValue();
-  this->frequency = map(value,0 , 1023, MINFREQ, MAXFREQ);
-}
-
-int CalculateFrequencyTask::getFrequency(){
-  return this->frequency;
+  frequency = map(value,0 , 1023, MINFREQ, MAXFREQ);
 }

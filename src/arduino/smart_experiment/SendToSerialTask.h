@@ -7,12 +7,10 @@
 class SendToSerialTask: public Task {
 
   String value;
-
-
+  
 public:
 
   SendToSerialTask();  
-  void setValue(String value);
   void init(int period);  
   void tick();
 };

@@ -2,16 +2,16 @@
 #define __TIMERTASK__
 
 #include "Task.h"
+#include "Globals.h"
 
 class TimerTask: public Task {
 
-  int elapsed;
   int period;
-  int time_to_expire;
+  int old_tick;
 
 public:
 
-  TimerTask(long int time_to_expire);  
+  TimerTask();  
   void init(int period);  
   void tick();
 };
