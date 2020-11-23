@@ -2,6 +2,7 @@
 #include "Scheduler.h"
 #include "Task.h"
 #include "ReadyTask.h"
+#include "SleepingTask.h"
 
 #define SLEEP_TIME 5
 #define STATE_READY 1
@@ -34,9 +35,17 @@ void loop() {
   if(!task_active){
     switch(currentState){
       case STATE_READY:
-        currentTask = new ReadyTask();//DA CAMBIARE SOLO PER PROVA
-        currentTask -> init(200);
+        sched.resetTaskList();
+        state = STATE_SLEEPING;
+        currentTask = new SleepingTask();
+        currentTask -> init(100);
         sched.init(50);
+        
+//      case STATE_SLEEPING:
+//        state = STATE_READY;
+//        currentTask = new ReadyTask();
+//        currentTask -> init(300);
+//        sched.init(50);
     }
     sched.addTask(currentTask);
   }
