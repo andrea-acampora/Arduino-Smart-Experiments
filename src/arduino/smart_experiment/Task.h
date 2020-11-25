@@ -8,9 +8,11 @@ class Task {
   bool active;
   
 public:
+  
   virtual void init(int period){
     myPeriod = period; 
     timeElapsed = 0;
+    this -> active = false;
   }
 
   virtual void tick() = 0;

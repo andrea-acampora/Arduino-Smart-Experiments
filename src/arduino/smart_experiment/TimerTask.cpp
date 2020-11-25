@@ -10,8 +10,5 @@ void TimerTask::init(int period){
 }
 
 void TimerTask::tick(){
-  int current = millis();
-  int elapsed = current - this -> old_tick;
-  timer -= elapsed;
-  this -> old_tick = current;
+
 }

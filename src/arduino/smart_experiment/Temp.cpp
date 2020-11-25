@@ -1,7 +1,6 @@
 #include "Temp.h"
 #include "Arduino.h"
 
-#define VCC ((float)5)
 
 Temp::Temp(int pin){
     this->pin = pin; 

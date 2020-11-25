@@ -6,9 +6,6 @@
 #include "Pir.h"
 #include "Globals.h"
 
-#define PIN_LED_1 13
-#define PIN_PIR 4
-
 class SleepingTask: public Task {
 
   Light* led_1;

@@ -1,26 +1,29 @@
 #ifndef __READYTASK__
 #define __READYTASK__
 
+#include <avr/sleep.h>
 #include "Task.h"
 #include "Light.h"
+#include "BlinkingTask.h"
 #include "Arduino.h"
 #include "Globals.h"
-
-#define SLEEP_TIME 5000
-#define PIN_LED_1 13
-#define NMAX 50
+#include "Button.h"
+#include "Pir.h"
 
 class ReadyTask: public Task {
 
-  Task* taskList[NMAX];
-  Light* led_1;
-  int nTasks;
-
+    Light* led1;
+    Button* button1;
+    Pir* pir;
+    int start_time;
+    enum { ENTRY, DETECTING , SLEEPING, EXIT} state; 
+       
 public:
 
-  ReadyTask(Task* calculateFrequency, Task* timer);  
+  ReadyTask(Light* led1, Button* button1, Pir* pir);  
   void init(int period);  
   void tick();
+  
 };
 
 

@@ -1,54 +1,88 @@
+/*
+ * " Smart-Experiment " - Sistemi Embedded & IoT course of Unibo.
+ * 
+ * Acampora Andrea
+ * Accursi Giacomo 
+ */
+ 
 #include "Arduino.h"
 #include "Scheduler.h"
 #include "Task.h"
 #include "ReadyTask.h"
-#include "CalculateFrequencyTask.h"
-#include "SendToSerialTask.h"
-#include "TimerTask.h"
-#include "SleepingTask.h"
+#include "InExecutionTask.h"
+#include "BlinkingTask.h"
 #include "Globals.h"
+#include "Button.h"
+#include "Pir.h"
+#include "Light.h"
+#include "Led.h"
+#include "MsgService.h"
+#include "TaskManager.h"
 
-#define SLEEP_TIME 5000
 
 Scheduler sched;
-Task* calculateFrequency;
-Task* timerTask;
-Task* sendToSerial;
+
+TaskManager* taskManager;
+
+Task* blinkingTask;
 Task* readyTask;
-Task* sleepingTask;
+Task* inExecutionTask;
+Task* abortedTask;
+Task* terminatedTask;
+
+
+
+Light* led_1;
+Light* led_2;
+Button* button_start;
+Button* button_stop;
+Pir* pir;
 
 void setup() {
-  State state = READY;
-  Serial.begin(9600);
-  sched.init(100);
+  sched.init(1000/MAXFREQ);
+  createComponents();
   createTasks();
   initTasks();
   addTasks();
+  Serial.begin(9600);
  }
  
 void loop() {
   sched.schedule();
-  Serial.println(state);
 }
 
 void createTasks(){
+  blinkingTask = new BlinkingTask(led_2);;
+  readyTask = new ReadyTask(led_1,button_start,pir);
+  inExecutionTask = new InExecutionTask();// ATTENZIONE
+  abortedTask = new ReadyTask(led_1,button_start,pir); // ATTENZIONE
+  terminatedTask = new ReadyTask(led_1,button_start,pir); // ATTENZIONE
+  taskManager = new TaskManager(readyTask, inExecutionTask, abortedTask, terminatedTask);
+}
 
-  calculateFrequency = new CalculateFrequencyTask();
-  timerTask = new TimerTask();
-  readyTask = new ReadyTask(calculateFrequency,timerTask);
-  sleepingTask = new SleepingTask();
+void createComponents(){
+  MsgService.init();
+  led_1 = new Led(PIN_LED_1);
+  led_2 = new Led(PIN_LED_2);
+  button_start = new Button(PIN_BUTTON_START);
+  button_stop = new Button(PIN_BUTTON_STOP);
+  pir = new Pir(PIN_PIR);
 }
 
 void initTasks(){
-  calculateFrequency -> init(300);
-  timerTask -> init(200);
-  readyTask->init(100);
-  sleepingTask -> init(500);
+  blinkingTask -> init(500);
+  readyTask -> init(100);
+  inExecutionTask -> init(200);
+  abortedTask -> init(200);
+  terminatedTask -> init(200);
+  taskManager -> init(20);
+  taskManager -> setActive(true);
 }
 
+
 void addTasks(){
-  sched.addTask(calculateFrequency);
-  sched.addTask(timerTask);
+  sched.addTask(taskManager);
+  sched.addTask(blinkingTask);
   sched.addTask(readyTask);
-  sched.addTask(sleepingTask);
+  sched.addTask(inExecutionTask);
 }
