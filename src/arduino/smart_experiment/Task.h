@@ -27,6 +27,10 @@ public:
     }
   }
 
+  void setPeriod(int period) {
+    this -> myPeriod = period;
+  }
+
     bool isActive(){
     return active;
   }

@@ -2,6 +2,7 @@
 #define __POT__
 
 #include "Arduino.h"
+
 class Pot{
     public: 
         Pot(int pin); 

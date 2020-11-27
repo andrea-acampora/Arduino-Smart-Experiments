@@ -2,6 +2,7 @@
 #define __TASKMANAGER__
 
 #include "Task.h"
+#include "SystemFlag.h"
 
 class TaskManager: public Task {
   

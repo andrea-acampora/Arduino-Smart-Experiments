@@ -14,10 +14,15 @@
 #include "Globals.h"
 #include "Button.h"
 #include "Pir.h"
+#include "Pot.h"
+#include "ServoMotor.h"
+#include "Temp.h"
 #include "Light.h"
 #include "Led.h"
+#include "Sonar.h"
 #include "MsgService.h"
 #include "TaskManager.h"
+#include "CheckButtonTask.h"
 
 
 Scheduler sched;
@@ -25,11 +30,12 @@ Scheduler sched;
 TaskManager* taskManager;
 
 Task* blinkingTask;
+Task* checkButtonStartTask;
+Task* checkButtonStopTask;
 Task* readyTask;
 Task* inExecutionTask;
 Task* abortedTask;
 Task* terminatedTask;
-
 
 
 Light* led_1;
@@ -37,6 +43,10 @@ Light* led_2;
 Button* button_start;
 Button* button_stop;
 Pir* pir;
+Pot* pot;
+Sonar* sonar;
+ServoMotor* servo;
+Temp* temp;
 
 void setup() {
   sched.init(1000/MAXFREQ);
@@ -52,11 +62,13 @@ void loop() {
 }
 
 void createTasks(){
-  blinkingTask = new BlinkingTask(led_2);;
-  readyTask = new ReadyTask(led_1,button_start,pir);
-  inExecutionTask = new InExecutionTask();// ATTENZIONE
-  abortedTask = new ReadyTask(led_1,button_start,pir); // ATTENZIONE
-  terminatedTask = new ReadyTask(led_1,button_start,pir); // ATTENZIONE
+  blinkingTask = new BlinkingTask(led_2);
+  checkButtonStartTask = new CheckButtonTask(button_start);
+  checkButtonStopTask = new CheckButtonTask(button_stop);
+  readyTask = new ReadyTask(led_1,checkButtonStartTask,pir);
+  inExecutionTask = new InExecutionTask(led_2, pot, sonar, servo, temp, checkButtonStopTask); 
+  abortedTask = new ReadyTask(led_1,checkButtonStartTask,pir); // ATTENZIONE
+  terminatedTask = new ReadyTask(led_1,checkButtonStartTask,pir); // ATTENZIONE
   taskManager = new TaskManager(readyTask, inExecutionTask, abortedTask, terminatedTask);
 }
 
@@ -67,22 +79,30 @@ void createComponents(){
   button_start = new Button(PIN_BUTTON_START);
   button_stop = new Button(PIN_BUTTON_STOP);
   pir = new Pir(PIN_PIR);
+  pot = new Pot(PIN_POT);
+  sonar = new Sonar(SONAR_TRIGGER_PIN, SONAR_ECHO_PIN);
+  servo = new ServoMotor(PIN_SERVO);
+  temp = new Temp(PIN_TEMP);
 }
 
 void initTasks(){
   blinkingTask -> init(500);
+  checkButtonStartTask -> init(1000 / MAXFREQ);
+  checkButtonStopTask -> init(1000 / MAXFREQ);
   readyTask -> init(100);
-  inExecutionTask -> init(200);
-  abortedTask -> init(200);
-  terminatedTask -> init(200);
-  taskManager -> init(20);
+  inExecutionTask -> init(1000 / MAXFREQ);
+  abortedTask -> init(200); // !!!!!!!!!!!!!!!!!!!!!!
+  terminatedTask -> init(200);// !!!!!!!!!!!!!!!!!!!!
+  taskManager -> init(1000 / MAXFREQ);
   taskManager -> setActive(true);
 }
 
 
 void addTasks(){
   sched.addTask(taskManager);
-  sched.addTask(blinkingTask);
-  sched.addTask(readyTask);
+  sched.addTask(checkButtonStartTask);
+  sched.addTask(checkButtonStopTask);
   sched.addTask(inExecutionTask);
+  sched.addTask(readyTask);
+  sched.addTask(blinkingTask);
 }

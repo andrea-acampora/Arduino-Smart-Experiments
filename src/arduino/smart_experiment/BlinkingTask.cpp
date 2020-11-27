@@ -7,13 +7,11 @@ BlinkingTask::BlinkingTask(Light* led){
   
 void BlinkingTask::setActive(bool active){
   Task::setActive(active);
-  if (active){
-    state = ON;
-  } else {
+  if(!active){
     led->switchOff();
   }
 }
-  
+
 void BlinkingTask::tick(){
   switch (state){
     case ON: {

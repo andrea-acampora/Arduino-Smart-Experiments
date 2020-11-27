@@ -1,14 +1,13 @@
 #include "ReadyTask.h"
-#include "TimerTask.h"
 #include "Arduino.h"
 #include "Globals.h"
 #include "EnableInterrupt.h"
 #include "MsgService.h"
 
 
-ReadyTask::ReadyTask(Light* led1, Button* button1,Pir* pir){
+ReadyTask::ReadyTask(Light* led1, Task* checkButtonStartTask,Pir* pir){
   this -> led1 = led1;
-  this -> button1 = button1;
+  this -> checkButtonStartTask = checkButtonStartTask;
   this -> pir = pir;
  }
 
@@ -25,16 +24,17 @@ void ReadyTask::tick(){
     
     case ENTRY:
        this -> start_time = millis();
-       MsgService.sendMsg("STATE=READY");
+       MsgService.sendMsg("State=READY");
+       this -> checkButtonStartTask -> setActive(true);
        this -> led1 -> switchOn();
        state = DETECTING;
        break;
 
     case DETECTING:
-        if( millis() - this -> start_time >= SLEEP_TIME){
+        if(this -> isTimeToSleep()){
           state = SLEEPING;
         }
-        if (this -> button1 -> isPressed()){
+        if (this -> isButtonStartPressed()){
           state = EXIT;
         }
         break;
@@ -56,7 +56,16 @@ void ReadyTask::tick(){
 
       case EXIT:
         state = ENTRY;
+        this -> checkButtonStartTask -> setActive(false);
         this -> setActive(false);
         break;
   }
+}
+
+bool ReadyTask::isButtonStartPressed(){
+  return !this->checkButtonStartTask->isActive();
+}
+
+bool ReadyTask::isTimeToSleep(){
+  return millis() - this -> start_time >= SLEEP_TIME;
 }

@@ -1,4 +1,3 @@
-#include "Arduino.h"
 #include "Sonar.h"
 
 Sonar::Sonar(int trigPin, int echoPin){
@@ -24,3 +23,8 @@ float Sonar::getDistance(float temperature){
     float d = t*vs;
     return d;
 }
+
+bool Sonar::isObjectDetected(float temperature){
+    return  this -> getDistance(temperature) < MAX_OBJECT_DISTANCE;
+}
+
