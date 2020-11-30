@@ -24,14 +24,14 @@ void TaskManager::tick(){
     case ON:
       if(!this -> currentTask -> isActive()){
         if(this -> currentTask == this -> readyTask){
-            this -> currentTask = inExecutionTask;
+          this -> currentTask = inExecutionTask;
         }
         else if ( this -> currentTask == this -> inExecutionTask ){
-          //experiment_aborted ? this -> currentTask = this -> abortedTask : this -> currentTask = this -> terminatedTask;
-          Serial.println("FINISHED");
+          experiment_aborted ? this -> currentTask = this -> abortedTask : this -> currentTask = this -> terminatedTask;
         }
-        //else if(ABORTED)
-        //else if(TERMINATED)
+        else if(this -> currentTask == this -> abortedTask || this -> currentTask == this -> terminatedTask){
+          this -> currentTask = this -> readyTask;
+        }
         this -> currentTask -> setActive(true);
       }
       break;

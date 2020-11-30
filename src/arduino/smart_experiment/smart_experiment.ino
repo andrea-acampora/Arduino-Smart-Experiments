@@ -10,6 +10,8 @@
 #include "Task.h"
 #include "ReadyTask.h"
 #include "InExecutionTask.h"
+#include "AbortedTask.h"
+#include "TerminatedTask.h"
 #include "BlinkingTask.h"
 #include "Globals.h"
 #include "Button.h"
@@ -49,7 +51,7 @@ ServoMotor* servo;
 Temp* temp;
 
 void setup() {
-  sched.init(1000/MAXFREQ);
+  sched.init(40);
   createComponents();
   createTasks();
   initTasks();
@@ -67,8 +69,8 @@ void createTasks(){
   checkButtonStopTask = new CheckButtonTask(button_stop);
   readyTask = new ReadyTask(led_1,checkButtonStartTask,pir);
   inExecutionTask = new InExecutionTask(led_2, pot, sonar, servo, temp, checkButtonStopTask); 
-  abortedTask = new ReadyTask(led_1,checkButtonStartTask,pir); // ATTENZIONE
-  terminatedTask = new ReadyTask(led_1,checkButtonStartTask,pir); // ATTENZIONE
+  abortedTask = new AbortedTask(blinkingTask);
+  terminatedTask = new TerminatedTask(blinkingTask);
   taskManager = new TaskManager(readyTask, inExecutionTask, abortedTask, terminatedTask);
 }
 
@@ -86,14 +88,14 @@ void createComponents(){
 }
 
 void initTasks(){
-  blinkingTask -> init(500);
-  checkButtonStartTask -> init(1000 / MAXFREQ);
-  checkButtonStopTask -> init(1000 / MAXFREQ);
-  readyTask -> init(100);
-  inExecutionTask -> init(1000 / MAXFREQ);
-  abortedTask -> init(200); // !!!!!!!!!!!!!!!!!!!!!!
-  terminatedTask -> init(200);// !!!!!!!!!!!!!!!!!!!!
-  taskManager -> init(1000 / MAXFREQ);
+  blinkingTask -> init(280);
+  checkButtonStartTask -> init(40);
+  checkButtonStopTask -> init(40);
+  readyTask -> init(120);
+  inExecutionTask -> init(40);
+  abortedTask -> init(200); 
+  terminatedTask -> init(200); // ATTENZIONE : CONTROLLARE SE IL TASK HA BISOGNO DI PERIODO 40 PER LEGGERE OK DA SERIALE 
+  taskManager -> init(40);
   taskManager -> setActive(true);
 }
 
@@ -104,5 +106,7 @@ void addTasks(){
   sched.addTask(checkButtonStopTask);
   sched.addTask(inExecutionTask);
   sched.addTask(readyTask);
+  sched.addTask(abortedTask);
+  sched.addTask(terminatedTask);
   sched.addTask(blinkingTask);
 }

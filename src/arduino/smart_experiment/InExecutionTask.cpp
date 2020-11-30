@@ -4,6 +4,8 @@ InExecutionTask::InExecutionTask(Light* led_2, Pot* pot, Sonar* sonar, ServoMoto
   this -> led_2 = led_2;
   this -> pot = pot;
   this -> sonar = sonar;
+  this -> servo = servo;
+  this -> temp = temp;
   this -> checkButtonStopTask = checkButtonStopTask;
  }
 
@@ -24,7 +26,8 @@ void InExecutionTask::tick(){
         this -> checkButtonStopTask -> setActive(true);
         this -> led_2 -> switchOn();
         this -> frequency = this -> readFrequency();
-        this -> setPeriod((1000/MAXFREQ) * (MAXFREQ - this -> frequency +1));
+        this -> frequency  %2 == 0 ? this -> frequency -= 1 : this -> frequency;
+        this -> setPeriod(20 * (50 - this -> frequency +1));
         this -> servo -> on();
         this -> start_time = millis();
         this -> old_t = millis();
@@ -59,7 +62,7 @@ void InExecutionTask::tick(){
 
 int InExecutionTask::readFrequency(){
   int value = this -> pot -> getValue();
-  return  map(value, 0, 1024 , MINFREQ, MAXFREQ);
+  return  map(value, 0, 1023 , MINFREQ, MAXFREQ);
 }
 
 bool InExecutionTask::isTimeExpired(){
@@ -84,10 +87,9 @@ void InExecutionTask::processData(){
 }
 
 void InExecutionTask::moveServo(){
-  // int servo_pos = map(this -> speed, 0, MAX_VEL, 0 , MAX_ANGLE);
-  // for (int i = 0; i < servo_pos ; i ++){
-  //   this -> servo -> setPosition(i);
-  // }
+    //int servo_pos = map(int(this -> speed), 0 , MAX_VEL, 0 , MAX_ANGLE);
+    int servo_pos = this -> speed * MAX_ANGLE / MAX_VEL;
+    this -> servo -> setPosition(servo_pos);
 }
 
 void InExecutionTask::sendToSerial(){

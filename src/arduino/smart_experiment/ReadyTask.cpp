@@ -45,6 +45,7 @@ void ReadyTask::tick(){
         enableInterrupt(this -> pir -> getPin(), wakeUp, RISING);
         delay(100);
         set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+        Serial.flush();
         sleep_enable();
         sleep_mode();
         if(this-> pir -> isDetected()){
@@ -67,5 +68,8 @@ bool ReadyTask::isButtonStartPressed(){
 }
 
 bool ReadyTask::isTimeToSleep(){
-  return millis() - this -> start_time >= SLEEP_TIME;
-}
+   return (millis() - this -> start_time) >= SLEEP_TIME;
+   }
+
+
+   

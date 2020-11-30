@@ -35,7 +35,7 @@ public:
     return active;
   }
 
-  void setActive(bool active){
+  virtual void setActive(bool active){
     this->active = active;
   }
   

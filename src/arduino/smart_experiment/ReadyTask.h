@@ -19,7 +19,7 @@ class ReadyTask: public Task {
     Pir* pir;
     Task* checkButtonStartTask;
     
-    int start_time;
+    unsigned long start_time;
     enum { ENTRY, DETECTING , SLEEPING, EXIT} state; 
 
     bool isTimeToSleep();

@@ -8,6 +8,7 @@ class BlinkingTask: public Task {
   
 public:
   BlinkingTask(Light* led);  
+  void init(int period);
   void setActive(bool active);
   void tick();
 

@@ -4,6 +4,11 @@
 BlinkingTask::BlinkingTask(Light* led){ 
   this->led = led;
 }
+
+void BlinkingTask::init(int period){
+  Task::init(period);
+  state = ON;
+}
   
 void BlinkingTask::setActive(bool active){
   Task::setActive(active);
