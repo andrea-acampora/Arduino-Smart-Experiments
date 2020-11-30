@@ -27,7 +27,7 @@ void InExecutionTask::tick(){
         this -> led_2 -> switchOn();
         this -> frequency = this -> readFrequency();
         this -> frequency  %2 == 0 ? this -> frequency -= 1 : this -> frequency;
-        this -> setPeriod(20 * (50 - this -> frequency +1));
+        this -> setPeriod(1000/MAXFREQ * (MAXFREQ - this -> frequency +1));
         this -> servo -> on();
         this -> start_time = millis();
         this -> old_t = millis();
@@ -70,7 +70,7 @@ bool InExecutionTask::isTimeExpired(){
 }
 
 void InExecutionTask::calculatePosition(){
-  this -> position = this -> sonar -> getDistance(20); // NO 20 ma temp -> getTemperature() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  this -> position = this -> sonar -> getDistance(21); // NO 20 ma temp -> getTemperature() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
 void InExecutionTask::processData(){
@@ -86,16 +86,26 @@ void InExecutionTask::processData(){
 
 }
 
+int InExecutionTask::arrotonda(float number){
+  int resto = (number - int(number))*100;
+  return resto > 50 ? ceil(number) : floor(number);
+}
+
 void InExecutionTask::moveServo(){
-    //int servo_pos = map(int(this -> speed), 0 , MAX_VEL, 0 , MAX_ANGLE);
-    int servo_pos = this -> speed * MAX_ANGLE / MAX_VEL;
-    this -> servo -> setPosition(servo_pos);
+    if(this -> position < MAX_OBJECT_DISTANCE) {
+    int servo_pos = map(arrotonda(this->speed),0,  MAX_VEL, 0 , MAX_ANGLE);
+    this -> servo -> setPosition(constrain(servo_pos,0,MAX_ANGLE));
+    }
 }
 
 void InExecutionTask::sendToSerial(){
-  MsgService.sendMsg(String("Pos=") + this -> position);
-  MsgService.sendMsg(String("Speed=") + this -> speed);
-  MsgService.sendMsg(String("Acc=") + this -> acceleration);
+  if(this -> position < MAX_OBJECT_DISTANCE) {
+    MsgService.sendMsg(String("Pos=") + this -> position);
+    MsgService.sendMsg(String("Speed=") + this -> speed);
+    MsgService.sendMsg(String("Acc=") + this -> acceleration);
+  } else{
+    MsgService.sendMsg(String("DATA_ERROR"));
+  }
 }
 
 bool InExecutionTask::isButtonStopPressed(){

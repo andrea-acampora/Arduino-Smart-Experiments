@@ -21,10 +21,9 @@ float Sonar::getDistance(float temperature){
     float tUS = pulseIn(echoPin, HIGH);
     float t = tUS / 1000.0 / 1000.0 / 2;
     float d = t*vs;
-    return d;
+    return constrain(d, 0, MAX_OBJECT_DISTANCE);
 }
 
 bool Sonar::isObjectDetected(float temperature){
     return  this -> getDistance(temperature) < MAX_OBJECT_DISTANCE;
 }
-

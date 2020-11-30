@@ -56,7 +56,6 @@ void setup() {
   createTasks();
   initTasks();
   addTasks();
-  Serial.begin(9600);
  }
  
 void loop() {
@@ -88,13 +87,13 @@ void createComponents(){
 }
 
 void initTasks(){
-  blinkingTask -> init(280);
+  blinkingTask -> init(120);
   checkButtonStartTask -> init(40);
   checkButtonStopTask -> init(40);
   readyTask -> init(120);
   inExecutionTask -> init(40);
   abortedTask -> init(200); 
-  terminatedTask -> init(200); // ATTENZIONE : CONTROLLARE SE IL TASK HA BISOGNO DI PERIODO 40 PER LEGGERE OK DA SERIALE 
+  terminatedTask -> init(200);
   taskManager -> init(40);
   taskManager -> setActive(true);
 }

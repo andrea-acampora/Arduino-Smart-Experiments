@@ -40,6 +40,7 @@ class InExecutionTask: public Task {
     bool isTimeExpired();
     bool isButtonStopPressed();
     void checkTime();
+    int arrotonda(float number);
     void calculatePosition();
     void processData();
     void moveServo();
