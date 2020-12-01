@@ -40,7 +40,7 @@ void ReadyTask::tick(){
         break;
 
      case SLEEPING:
-        MsgService.sendMsg("STATE=SLEEPING");
+        MsgService.sendMsg("State=SLEEPING");
         this -> led1 -> switchOff();
         enableInterrupt(this -> pir -> getPin(), wakeUp, RISING);
         delay(100);

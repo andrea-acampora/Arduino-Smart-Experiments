@@ -1,5 +1,6 @@
 package application;
 
+import data.DataReceiver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +23,8 @@ public final class Main extends Application {
         stage.setTitle("JavaFX - Complete Example");
         stage.setScene(scene);
         stage.show();
+        DataReceiver receiver = new DataReceiver();
+        receiver.recive();
     }
 
     /**
