@@ -1,5 +1,8 @@
 package application;
 
+import java.util.concurrent.TimeUnit;
+
+import controllers.UIController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,17 +14,32 @@ import javafx.stage.Stage;
  */
 public final class Main extends Application {
 
-    private static final int SCENE_WIDTH = 500;
-    private static final int SCENE_HEIGHT = 300;
+    private static final int SCENE_WIDTH = 1400;
+    private static final int SCENE_HEIGHT = 900;
+    
+    private UIController UIController; 
+    
 
     @Override
     public void start(final Stage stage) throws Exception {
-        final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/main.fxml"));
+        //final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/main.fxml"));
+        
+        FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("layouts/main.fxml")); 
+        Parent root = loader.load(); 
+        UIController = (UIController) loader.getController(); 
         final Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
-        // Stage configuration
+        UIController.init();
+        
+//        final FXMLLoader loader = new FXMLLoader();
+//        final Scene scene = new Scene(loader.load(getClass().getResourceAsStream("layouts/main.fxml")));
+//        this.uiController = loader.getController();
+        
         stage.setTitle("JavaFX - Complete Example");
         stage.setScene(scene);
         stage.show();
+        for(int i = 0; i < 40; i++) {
+        	this.UIController.addData(i, 20+i, 10+1, i/(float)100);
+        }
     }
 
     /**

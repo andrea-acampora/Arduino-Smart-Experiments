@@ -1,21 +1,44 @@
-<?xml version="1.0" encoding ="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox 
-	xmlns="http://javafx.com/javafx" 
-	xmlns:fx="http://javafx.com/fxml"
-	fx:controller="controllers.UIController">
-
-  <children>
-    <Button fx:id="btn"
-    	alignment="CENTER"
-    	text="Say Hello!"
-    	onMouseClicked="#btnOnClickHandler" />
-    
-    <Label fx:id="lbl"
-    	alignment="CENTER_LEFT"
-    	text="Label Text Here!" />
-  </children>
-</VBox >
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="884.0" prefWidth="1326.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UIController">
+   <children>
+      <Text layoutX="137.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STATE :" wrappingWidth="156.12800216674805">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Text>
+      <Label fx:id="stateLabel" layoutX="293.0" layoutY="68.0" prefHeight="58.0" prefWidth="329.0">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <LineChart fx:id="lineChart" layoutX="21.0" layoutY="162.0" prefHeight="682.0" prefWidth="1055.0">
+        <xAxis>
+          <NumberAxis fx:id="xAxys" autoRanging="false" label="t" prefHeight="25.0" prefWidth="909.0" side="LEFT" tickLabelGap="1.0" upperBound="20.0" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="numberAxys" side="LEFT" upperBound="20.0" />
+        </yAxis>
+      </LineChart>
+      <Label layoutX="1157.0" layoutY="819.0" text="Object position">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="overPane" layoutX="29.0" layoutY="167.0" prefHeight="689.0" prefWidth="1268.0">
+         <children>
+            <Button layoutX="465.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#OKPressed" prefHeight="194.0" prefWidth="338.0" text="Press to continue" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" />
+         </children>
+      </AnchorPane>
+      <ProgressBar fx:id="objectPosition" layoutX="889.0" layoutY="466.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="627.0" progress="0.0" rotate="90.0" />
+   </children>
+</AnchorPane>
