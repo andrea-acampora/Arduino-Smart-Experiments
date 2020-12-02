@@ -7,21 +7,21 @@ public class DataReceiver {
 
     private CommChannel channel;
     private ExperimentData data;
-    private static final String SERIALPORT = "/dev/ttyACM1";
-    private static final int BITRATE = 9600;
 
-    public DataReceiver() throws Exception {
-        this.channel = new SerialCommChannel(SERIALPORT, BITRATE);
+
+    public DataReceiver(final CommChannel channel) throws Exception {
+        this.channel = channel;
         this.data = new ExperimentData();
-        Thread.sleep(4000);
     }
 
-    public final void recive() throws InterruptedException {
-
-        while (true) {
+    public CommChannel getCommChannel() {
+    	return this.channel;
+    }
+    
+    public final boolean recive() throws InterruptedException {
           String msg = channel.receiveMsg();
           this.extractData(msg);
-        }
+          return true;
     }
 
     private void extractData(final String msg) {
@@ -44,4 +44,8 @@ public class DataReceiver {
         	data.addAcceleration(acc);
         }
 	}
+    
+    public ExperimentData getExperimentData() {
+    	return this.data;
+    }
 }

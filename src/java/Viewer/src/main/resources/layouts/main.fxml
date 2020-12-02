@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="884.0" prefWidth="1326.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="884.0" prefWidth="1326.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UIController">
    <children>
-      <Text layoutX="137.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STATE :" wrappingWidth="156.12800216674805">
+      <Text layoutX="130.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STATE:" wrappingWidth="156.12800216674805">
          <font>
             <Font size="41.0" />
          </font>
@@ -36,7 +36,7 @@
       </Label>
       <AnchorPane fx:id="overPane" layoutX="29.0" layoutY="167.0" prefHeight="689.0" prefWidth="1268.0">
          <children>
-            <Button layoutX="465.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#OKPressed" prefHeight="194.0" prefWidth="338.0" text="Press to continue" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" />
+            <Button fx:id="okButton" layoutX="465.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#OKPressed" prefHeight="194.0" prefWidth="338.0" text="Press to continue" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" />
          </children>
       </AnchorPane>
       <ProgressBar fx:id="objectPosition" layoutX="889.0" layoutY="466.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="627.0" progress="0.0" rotate="90.0" />

@@ -51,6 +51,7 @@ ServoMotor* servo;
 Temp* temp;
 
 void setup() {
+  MsgService.init();
   sched.init(40);
   createComponents();
   createTasks();
