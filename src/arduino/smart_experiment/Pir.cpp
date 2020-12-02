@@ -9,4 +9,8 @@ Pir::Pir(int pin){
 
 bool Pir::isDetected(){
     return digitalRead(pin) == HIGH; 
-}; 
+};
+
+int Pir::getPin(){
+    return this -> pin;
+}

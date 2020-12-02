@@ -1,24 +1,36 @@
 #ifndef __READYTASK__
 #define __READYTASK__
 
+#include <avr/sleep.h>
 #include "Task.h"
+#include "CheckButtonTask.h"
 #include "Light.h"
-#include "FrequencyTask.h"
+#include "BlinkingTask.h"
+#include "Arduino.h"
+#include "Globals.h"
+#include "Button.h"
+#include "Pir.h"
 
 #define SLEEP_TIME 5000
-#define PIN_LED_1 13
 
 class ReadyTask: public Task {
 
-  Task* frequencyTask;
-  Task* timerTask;
-  Light* led_1;
+    Light* led1;
+    Pir* pir;
+    Task* checkButtonStartTask;
+    
+    unsigned long start_time;
+    enum { ENTRY, DETECTING , SLEEPING, EXIT} state; 
 
+    bool isTimeToSleep();
+    bool isButtonStartPressed();
+       
 public:
 
-  ReadyTask();  
+  ReadyTask(Light* led1, Task* checkButtonStartTask, Pir* pir);  
   void init(int period);  
   void tick();
+  
 };
 
 

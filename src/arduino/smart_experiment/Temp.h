@@ -3,6 +3,9 @@
 
 #include "Arduino.h"
 
+#define VCC ((float)5)
+
+
 class Temp{
     public: 
         Temp(int pin); 

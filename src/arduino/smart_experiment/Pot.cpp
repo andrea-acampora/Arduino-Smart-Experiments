@@ -1,4 +1,3 @@
-#include "Arduino.h"
 #include "Pot.h"
 
 Pot::Pot(int pin){

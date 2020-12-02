@@ -29,10 +29,9 @@ void Scheduler::resetTaskList(){
     this->nTasks = 0;
 }
 
-void Scheduler::schedule(){   
+void Scheduler::schedule(){
   while (!timerFlag){}
   timerFlag = false;
-
   for (int i = 0; i < nTasks; i++){
     if (taskList[i]->isActive() && taskList[i]->updateAndCheckTime(basePeriod)){
       taskList[i]->tick();

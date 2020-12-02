@@ -1,8 +1,8 @@
 package application;
 
 import java.util.concurrent.TimeUnit;
-
 import controllers.UIController;
+import data.DataReceiver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,9 +37,9 @@ public final class Main extends Application {
         stage.setTitle("JavaFX - Complete Example");
         stage.setScene(scene);
         stage.show();
-        for(int i = 0; i < 40; i++) {
-        	this.UIController.addData(i, 20+i, 10+1, i/(float)100);
-        }
+
+        DataReceiver receiver = new DataReceiver();
+        receiver.recive();
     }
 
     /**
