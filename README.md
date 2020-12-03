@@ -10,7 +10,7 @@ The source code is available at **/src** folder.
 
 **Usage:**
 
-1. Upload the sketch <u>smart-experiment.ino</u> on Arduino.
+1. Upload the sketch **smart-experiment.ino** on Arduino.
 2.  Go to *src/java/Viewer* folder and execute ./gradlew run from terminal.
 3.  Enjoy the experiment.
 
