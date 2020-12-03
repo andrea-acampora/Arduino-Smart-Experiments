@@ -5,8 +5,8 @@
 #include "SystemFlag.h"
 
 /**
- * The manager of current tasks in execution.
- * It continuosly check the state of tasks in execution and , when anyone will be disabled, it will start the following task.
+ * The manager of current macro-task in execution.
+ * It continuosly check the state of macro-task in execution and , when it will be disabled, it will start the following one.
  * It's active during all the program execution.
  */
 class TaskManager: public Task {

@@ -21,7 +21,7 @@ public final class Main extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
-        CommChannel channel = new SerialCommChannel("/dev/ttyACM1",9600);
+        CommChannel channel = new SerialCommChannel("/dev/ttyACM0",9600);
 	    DataReceiver receiver = new DataReceiver(channel);
     	View view = new View(stage);
 	    Controller controller = new Controller(view,receiver);

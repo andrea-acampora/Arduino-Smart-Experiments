@@ -11,7 +11,7 @@
 
 /**
  * This task is activated from the task manager when at the start of the Experiment the sonar doesn't detect any object.
- * It will active the BlinkingTask for 2 seconds.
+ * It will activate the BlinkingTask for 2 seconds.
  */
 class AbortedTask: public Task {
 

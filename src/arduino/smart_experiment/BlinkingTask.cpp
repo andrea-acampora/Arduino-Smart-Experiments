@@ -1,6 +1,9 @@
 #include "BlinkingTask.h"
 #include "Arduino.h"
 
+/**
+ * The task that manage the blinking of a led.
+ */
 BlinkingTask::BlinkingTask(Light* led){ 
   this->led = led;
 }

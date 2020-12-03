@@ -52,11 +52,11 @@ Temp* temp;
 
 void setup() {
   MsgService.init();
-  sched.init(40); // Minimum period of the scheduler to run all tasks in worst case.
-  createComponents();
-  createTasks();
-  initTasks();
-  addTasks();
+  sched.init(40); // Minimum period of the scheduler to run all tasks.
+  createComponents(); //function to initialize all components of the experiment.
+  createTasks(); //function to create all tasks of the experiment.
+  initTasks(); //function to set the period to the tasks.
+  addTasks(); //function to add tasks to the scheduler
  }
  
 void loop() {
@@ -95,8 +95,8 @@ void initTasks(){
   inExecutionTask -> init(40);
   abortedTask -> init(200); 
   terminatedTask -> init(200);
-  taskManager -> init(40);
-  taskManager -> setActive(true);
+  taskManager -> init(40); //It has the same period of the Scheduler because it has to check if tasks are actives.
+  taskManager -> setActive(true);// The only task active at the beginning. It will activate the first task to execute.
 }
 
 

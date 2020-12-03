@@ -18,7 +18,6 @@ void InExecutionTask::init(int period){
   state = ENTRY;
 }
 
-
 void InExecutionTask::tick(){
   
   switch(state){
@@ -29,9 +28,9 @@ void InExecutionTask::tick(){
         MsgService.sendMsg("State=IN_EXECUTION");
         this -> checkButtonStopTask -> setActive(true);
         this -> led_2 -> switchOn();
-        this -> frequency = this -> readFrequency();
+        this -> frequency = this -> readFrequency(); //Reading the frequency from the pot.
         this -> frequency  %2 == 0 ? this -> frequency -= 1 : this -> frequency;
-        this -> setPeriod(1000/MAXFREQ * (MAXFREQ - this -> frequency +1));
+        this -> setPeriod(1000/MAXFREQ * (MAXFREQ - this -> frequency +1)); //Setting the period of the task with multiples of the scheduler period (40);
         this -> servo -> on();
         this -> start_time = millis();
         this -> old_t = millis();
@@ -45,7 +44,7 @@ void InExecutionTask::tick(){
       break;
 
     case TRACKING:
-      if (!this -> isTimeExpired() && !this->isButtonStopPressed()){
+      if (!this -> isTimeExpired() && !this->isButtonStopPressed()){//Checking if the experiment is over.
         this -> calculatePosition();
         this -> processData();
         this -> moveServo();
@@ -77,6 +76,10 @@ void InExecutionTask::calculatePosition(){
   this -> position = this -> sonar -> getDistance(this -> temp -> getTemperature());
 }
 
+/**
+ * The main method of the experiment.
+ * It calculates speed and acceleration every tick of the task.
+ */
 void InExecutionTask::processData(){
   float old_speed = this -> speed;
   unsigned long t = millis();
@@ -90,11 +93,17 @@ void InExecutionTask::processData(){
 
 }
 
+/**
+ * Method that round the speeed for setting it to the Servo.
+ */
 int InExecutionTask::arrotonda(float number){
   int resto = (number - int(number))*100;
   return resto > 50 ? ceil(number) : floor(number);
 }
 
+/**
+ * Move the servo-motor depending on the speed. 
+ */
 void InExecutionTask::moveServo(){
     if(this -> position < MAX_OBJECT_DISTANCE) {
     int servo_pos = map(arrotonda(this->speed),0,  MAX_VEL, 0 , MAX_ANGLE);

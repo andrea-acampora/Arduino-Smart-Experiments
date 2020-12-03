@@ -4,6 +4,9 @@
 #include "Task.h"
 #include "Light.h"
 
+/**
+ * The task that manage the blinking of a led.
+ */
 class BlinkingTask: public Task {
   
 public:

@@ -98,6 +98,7 @@ public final class UIController {
     	this.lineChart.getData().get(0).getData().clear();
     	this.lineChart.getData().get(1).getData().clear();
     	this.objectPosition.setProgress(0);
+    	this.xAxys.setUpperBound(20);
     }
     
     public void showButton() {

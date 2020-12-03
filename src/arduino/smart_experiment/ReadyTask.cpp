@@ -38,11 +38,14 @@ void ReadyTask::tick(){
         if(this -> isTimeToSleep()){
           state = SLEEPING;
         }
-        if (this -> isButtonStartPressed()){
+        if (this -> isButtonStartPressed()){//function that used the CheckButtonStart task and check if the start button is pressed.
           state = EXIT;
         }
         break;
-
+      /*
+       * The sleep state of the experiment.
+       * The system will be in power save mode until the pir sensor will detect something.
+       */ 
      case SLEEPING:
         MsgService.sendMsg("State=SLEEPING");
         this -> led1 -> switchOff();

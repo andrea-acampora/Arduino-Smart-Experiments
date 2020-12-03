@@ -5,7 +5,7 @@
 #include "Button.h"
 
 /**
- * This task is used to check if user press a button without using interrupts.
+ * This task is used to check if  a button is pressed without using interrupts.
  * It's activated from any Macro task which needs it.
  */
 class CheckButtonTask: public Task {
