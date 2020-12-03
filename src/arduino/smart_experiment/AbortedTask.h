@@ -9,6 +9,10 @@
 
 #define ERROR_TIME 2000
 
+/**
+ * This task is activated from the task manager when at the start of the Experiment the sonar doesn't detect any object.
+ * It will active the BlinkingTask for 2 seconds.
+ */
 class AbortedTask: public Task {
 
     Task* blinkingTask;

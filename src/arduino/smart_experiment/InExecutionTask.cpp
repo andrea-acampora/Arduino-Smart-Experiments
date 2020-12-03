@@ -1,5 +1,9 @@
 #include "InExecutionTask.h"
-
+/**
+ * Task which represent the main actions of object's tracking during the experiment.
+ * It's activated from the task manager when user press the ready button.
+ */
+ 
 InExecutionTask::InExecutionTask(Light* led_2, Pot* pot, Sonar* sonar, ServoMotor* servo, Temp* temp, Task* checkButtonStopTask){
   this -> led_2 = led_2;
   this -> pot = pot;
@@ -21,7 +25,7 @@ void InExecutionTask::tick(){
     
     case ENTRY:
       experiment_aborted = false;
-      if (this -> sonar -> isObjectDetected(20)){ // NO 20 ma temp -> getTemperature() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      if (this -> sonar -> isObjectDetected(this -> temp -> getTemperature())){ //Checking if sonar detects something at the start of the experiment.
         MsgService.sendMsg("State=IN_EXECUTION");
         this -> checkButtonStopTask -> setActive(true);
         this -> led_2 -> switchOn();
@@ -70,7 +74,7 @@ bool InExecutionTask::isTimeExpired(){
 }
 
 void InExecutionTask::calculatePosition(){
-  this -> position = this -> sonar -> getDistance(21); // NO 20 ma temp -> getTemperature() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  this -> position = this -> sonar -> getDistance(this -> temp -> getTemperature());
 }
 
 void InExecutionTask::processData(){

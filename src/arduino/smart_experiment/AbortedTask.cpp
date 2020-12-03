@@ -3,7 +3,10 @@
 #include "Globals.h"
 #include "MsgService.h"
 
-
+/**
+ * This task is activated from the task manager when at the start of the Experiment the sonar doesn't detect any object.
+ * It will active the BlinkingTask for 2 seconds.
+ */
 AbortedTask::AbortedTask(Task* blinkingTask){
   this -> blinkingTask = blinkingTask;
  }

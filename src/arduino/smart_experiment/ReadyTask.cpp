@@ -4,7 +4,11 @@
 #include "EnableInterrupt.h"
 #include "MsgService.h"
 
-
+/**
+ * Task which contains the starting actions before the experiment starts.
+ * It's activated from the task manager at the beginning of program's execution.
+ * It also manage the sleep mode.
+ */
 ReadyTask::ReadyTask(Light* led1, Task* checkButtonStartTask,Pir* pir){
   this -> led1 = led1;
   this -> checkButtonStartTask = checkButtonStartTask;

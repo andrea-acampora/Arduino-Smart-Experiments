@@ -7,6 +7,10 @@
 #include "Globals.h"
 #include "MsgService.h"
 
+/**
+ * This task represents the ending state of the experiment.
+ * During its execution it will wait for input restart.
+ */
 class TerminatedTask: public Task {
 
     Task* blinkingTask;

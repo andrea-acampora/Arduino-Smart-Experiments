@@ -1,8 +1,9 @@
 /*
- * " Smart-Experiment " - Sistemi Embedded & IoT course of Unibo.
+ * "Arduino Smart-Experiment" - Sistemi Embedded & IoT course of Università di Bologna.
  * 
- * Acampora Andrea
- * Accursi Giacomo 
+ * Authors:
+ *  -Acampora Andrea
+ *  -Accursi Giacomo 
  */
  
 #include "Arduino.h"
@@ -25,7 +26,6 @@
 #include "MsgService.h"
 #include "TaskManager.h"
 #include "CheckButtonTask.h"
-
 
 Scheduler sched;
 
@@ -52,7 +52,7 @@ Temp* temp;
 
 void setup() {
   MsgService.init();
-  sched.init(40);
+  sched.init(40); // Minimum period of the scheduler to run all tasks in worst case.
   createComponents();
   createTasks();
   initTasks();

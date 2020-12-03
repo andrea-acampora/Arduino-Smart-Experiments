@@ -16,6 +16,11 @@
 
 #define MAX_TIME 20000
 
+/**
+ * Task which represent the main actions of object's tracking during the experiment.
+ * It's activated from the task manager when user press the ready button.
+ */
+
 class InExecutionTask: public Task {
 
     Light* led_2;

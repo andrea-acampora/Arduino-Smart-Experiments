@@ -13,6 +13,11 @@
 
 #define SLEEP_TIME 5000
 
+/**
+ * Task which contains the starting actions before the experiment starts.
+ * It's activated from the task manager at the beginning of program's execution.
+ * It also manage the sleep mode.
+ */
 class ReadyTask: public Task {
 
     Light* led1;

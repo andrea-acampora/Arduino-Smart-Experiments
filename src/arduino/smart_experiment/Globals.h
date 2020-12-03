@@ -1,9 +1,11 @@
 #ifndef __GLOBALS__
 #define __GLOBALS__
 
+/**
+ * Contains all the global Experiment informations.
+ */
 #define MINFREQ 1
 #define MAXFREQ 50
-
 
 #define PIN_POT A0
 #define PIN_SERVO 11

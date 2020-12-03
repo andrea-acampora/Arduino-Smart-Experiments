@@ -1,6 +1,10 @@
 #include "CheckButtonTask.h"
 #include "Arduino.h"
 
+/**
+ * This task is used to check if user press a button without using interrupts.
+ * It's activated from any Macro task which needs it.
+ */
 CheckButtonTask::CheckButtonTask(Button* button){ 
   this->button = button;
 }
