@@ -32,7 +32,7 @@ class InExecutionTask: public Task {
 
     Task* checkButtonStopTask;
 
-    enum { ENTRY, TRACKING, OVER} state; 
+    enum { START, TRACKING, OVER} state; 
     int frequency;
     float position;
     float old_position;

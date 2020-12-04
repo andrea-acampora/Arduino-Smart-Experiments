@@ -14,14 +14,14 @@ TerminatedTask::TerminatedTask(Task* blinkingTask){
 
 void TerminatedTask::init(int period){
   Task::init(period);
-  state = ENTRY;
+  state = START;
 }
 
 void TerminatedTask::tick(){
   
   switch(state){
     
-    case ENTRY:
+    case START:
        MsgService.sendMsg("State=TERMINATED");
        this -> blinkingTask -> setActive(true);
        state = WAITING_FOR_RESTART;
@@ -34,7 +34,7 @@ void TerminatedTask::tick(){
         break;
 
       case EXIT:
-        state = ENTRY;
+        state = START;
         this -> blinkingTask -> setActive(false);
         this -> setActive(false);
         break;

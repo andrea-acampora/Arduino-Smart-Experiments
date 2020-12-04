@@ -17,7 +17,7 @@ class AbortedTask: public Task {
 
     Task* blinkingTask;
     unsigned long start_time;
-    enum { ENTRY, BLINKING , EXIT} state;
+    enum { START, BLINKING , EXIT} state;
 
     bool isTimeExpired(); 
        

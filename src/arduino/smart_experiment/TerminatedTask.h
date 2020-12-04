@@ -14,7 +14,7 @@
 class TerminatedTask: public Task {
 
     Task* blinkingTask;
-    enum { ENTRY, WAITING_FOR_RESTART , EXIT} state;
+    enum { START, WAITING_FOR_RESTART , EXIT} state;
     bool checkUserInput();
        
 public:

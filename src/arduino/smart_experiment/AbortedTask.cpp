@@ -13,14 +13,14 @@ AbortedTask::AbortedTask(Task* blinkingTask){
 
 void AbortedTask::init(int period){
   Task::init(period);
-  state = ENTRY;
+  state = START;
 }
 
 void AbortedTask::tick(){
   
   switch(state){
     
-    case ENTRY:
+    case START:
        MsgService.sendMsg("State=ABORTED");
        this -> start_time = millis();
        this -> blinkingTask -> setActive(true);
@@ -34,7 +34,7 @@ void AbortedTask::tick(){
         break;
 
       case EXIT:
-        state = ENTRY;
+        state = START;
         this -> blinkingTask -> setActive(false);
         this -> setActive(false);
         break;

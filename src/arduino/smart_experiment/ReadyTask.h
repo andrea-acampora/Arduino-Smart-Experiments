@@ -1,7 +1,6 @@
 #ifndef __READYTASK__
 #define __READYTASK__
 
-#include <avr/sleep.h>
 #include "Task.h"
 #include "CheckButtonTask.h"
 #include "Light.h"
@@ -10,6 +9,7 @@
 #include "Globals.h"
 #include "Button.h"
 #include "Pir.h"
+#include <avr/sleep.h>
 
 #define SLEEP_TIME 5000
 
@@ -25,7 +25,7 @@ class ReadyTask: public Task {
     Task* checkButtonStartTask;
     
     unsigned long start_time;
-    enum { ENTRY, DETECTING , SLEEPING, EXIT} state; 
+    enum { START, DETECTING , SLEEPING, EXIT} state; 
 
     bool isTimeToSleep();
     bool isButtonStartPressed();

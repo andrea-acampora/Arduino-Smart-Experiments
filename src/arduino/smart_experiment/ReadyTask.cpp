@@ -17,7 +17,7 @@ ReadyTask::ReadyTask(Light* led1, Task* checkButtonStartTask,Pir* pir){
 
 void ReadyTask::init(int period){
   Task::init(period);
-  state = ENTRY;
+  state = START;
 }
 
 void wakeUp(){}
@@ -26,7 +26,7 @@ void ReadyTask::tick(){
   
   switch(state){
     
-    case ENTRY:
+    case START:
        this -> start_time = millis();
        MsgService.sendMsg("State=READY");
        this -> checkButtonStartTask -> setActive(true);
@@ -56,14 +56,14 @@ void ReadyTask::tick(){
         sleep_enable();
         sleep_mode();
         if(this-> pir -> isDetected()){
-          state = ENTRY;
+          state = START;
           disableInterrupt(this -> pir -> getPin());
           sleep_disable();
         }
         break;
 
       case EXIT:
-        state = ENTRY;
+        state = START;
         this -> checkButtonStartTask -> setActive(false);
         this -> setActive(false);
         break;

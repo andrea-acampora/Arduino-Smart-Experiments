@@ -10,12 +10,12 @@ TaskManager::TaskManager(Task* readyTask, Task* inExecutionTask, Task* abortedTa
   
 void TaskManager::init(int period){
   Task::init(period);
-  state = ENTRY;
+  state = START;
 }
   
 void TaskManager::tick(){
   switch (state){
-    case ENTRY:
+    case START:
       this -> currentTask = this -> readyTask;
       this -> currentTask -> setActive(true);
       state = ON;

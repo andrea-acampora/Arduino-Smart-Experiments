@@ -25,7 +25,7 @@ private:
 
   Task* currentTask;
   
-  enum { ENTRY , ON } state;
+  enum { START , ON } state;
 
 };
 

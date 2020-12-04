@@ -15,14 +15,14 @@ InExecutionTask::InExecutionTask(Light* led_2, Pot* pot, Sonar* sonar, ServoMoto
 
 void InExecutionTask::init(int period){
   Task::init(period);
-  state = ENTRY;
+  state = START;
 }
 
 void InExecutionTask::tick(){
   
   switch(state){
     
-    case ENTRY:
+    case START:
       experiment_aborted = false;
       if (this -> sonar -> isObjectDetected(this -> temp -> getTemperature())){ //Checking if sonar detects something at the start of the experiment.
         MsgService.sendMsg("State=IN_EXECUTION");
@@ -56,7 +56,7 @@ void InExecutionTask::tick(){
 
     case OVER:
       this -> servo -> off();
-      state = ENTRY;
+      state = START;
       this -> checkButtonStopTask -> setActive(false);
       this -> setActive(false);
       break;
