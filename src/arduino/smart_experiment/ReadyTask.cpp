@@ -39,7 +39,8 @@ void ReadyTask::tick(){
           state = SLEEPING;
         }
         if (this -> isButtonStartPressed()){//function that used the CheckButtonStart task and check if the start button is pressed.
-          state = EXIT;
+          state = START;
+          this -> setActive(false);
         }
         break;
       /*
@@ -60,12 +61,6 @@ void ReadyTask::tick(){
           disableInterrupt(this -> pir -> getPin());
           sleep_disable();
         }
-        break;
-
-      case EXIT:
-        state = START;
-        this -> checkButtonStartTask -> setActive(false);
-        this -> setActive(false);
         break;
   }
 }

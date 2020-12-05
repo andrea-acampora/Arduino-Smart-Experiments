@@ -57,7 +57,6 @@ void InExecutionTask::tick(){
     case OVER:
       this -> servo -> off();
       state = START;
-      this -> checkButtonStopTask -> setActive(false);
       this -> setActive(false);
       break;
   }

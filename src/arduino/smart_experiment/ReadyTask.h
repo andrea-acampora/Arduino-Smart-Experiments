@@ -25,7 +25,7 @@ class ReadyTask: public Task {
     Task* checkButtonStartTask;
     
     unsigned long start_time;
-    enum { START, DETECTING , SLEEPING, EXIT} state; 
+    enum { START, DETECTING , SLEEPING } state; 
 
     bool isTimeToSleep();
     bool isButtonStartPressed();
